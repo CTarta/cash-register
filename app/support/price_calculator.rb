@@ -6,8 +6,8 @@ class PriceCalculator
 
   def total_price
     return "0.00€" if items.empty?
-    item_prices = items.map do |item|
-      PRODUCT_LOOKUP[item]
+    item_prices = items.tally.map do |item, quantity|
+      PRODUCT_LOOKUP[item] * quantity
     end
     
     "%.2f" % item_prices.sum(0.00) + "€"
