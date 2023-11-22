@@ -3,16 +3,17 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }, allow_nil: true
 
   def price_for(quantity:)
+    base_price = self.price
     if code == "GR1"
-      price * (quantity/2) + price * (quantity%2)
+      base_price * (quantity/2) + base_price * (quantity%2)
     elsif code == "SR1"
-      price = 4.50 if quantity >= 3
-      price * quantity
+      base_price = 4.50 if quantity >= 3
+      base_price * quantity
     elsif code == "CF1"
       if quantity >= 3
-        (price * quantity) * 2/3
+        ((base_price * quantity) * 2/3).truncate(2)
       else
-        price * quantity
+        base_price * quantity
       end
     end
   end
