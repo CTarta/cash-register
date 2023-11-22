@@ -6,9 +6,6 @@ class PriceCalculator
 
   def total_price
     return "0.00€" if items.empty?
-    item_prices = items.tally.map do |item, quantity|
-      PRODUCT_LOOKUP[item] * quantity
-    end
     
     "%.2f" % item_prices.sum(0.00) + "€"
   end
@@ -22,5 +19,28 @@ class PriceCalculator
     "SR1" => 5.00,
     "CF1" => 11.23
   }
+
+  def item_prices 
+    items.tally.map do |item, quantity|
+      item_price(item, quantity)
+    end
+  end
+  
+  def item_price(item, quantity)
+    price = PRODUCT_LOOKUP[item]
+
+    if item == "GR1"
+      price * (quantity/2) + price * (quantity%2)
+    elsif item == "SR1"
+      price = 4.50 if quantity >= 3
+      price * quantity
+    elsif item == "CF1"
+      if quantity >= 3
+        (price * quantity) * 2/3
+      else
+        price * quantity
+      end
+    end
+  end
 
 end

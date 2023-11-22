@@ -3,6 +3,13 @@ require "rails_helper"
 RSpec.describe PriceCalculator do
   let(:calculator) { described_class.new(items: items) }
   describe "#total_price" do
+    context "When the cart contains unrecognised items: BLURB1" do
+      let(:items) { ["BLURB1"] }
+      it "returns 0.00€" do
+        expect(calculator.total_price).to eq "0.00€"
+      end 
+    end
+
     context "When the items in the cart are: GR1" do
       let(:items) { ["GR1"] }
       it "returns 3.11€" do
