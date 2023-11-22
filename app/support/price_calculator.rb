@@ -24,21 +24,9 @@ class PriceCalculator
   def item_price(code, quantity)
     item = item_for(code)
     return 0.00 unless item
+    return 0.00 unless quantity
     
-    price = item.price
-
-    if code == "GR1"
-      price * (quantity/2) + price * (quantity%2)
-    elsif code == "SR1"
-      price = 4.50 if quantity >= 3
-      price * quantity
-    elsif code == "CF1"
-      if quantity >= 3
-        (price * quantity) * 2/3
-      else
-        price * quantity
-      end
-    end
+    item.price_for(quantity:)
   end
 
   def item_for(code)
