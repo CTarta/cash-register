@@ -7,7 +7,7 @@ RSpec.describe "Api::V1::Products", type: :request do
         cart_items = ["GR1", "GR1"]
         get total_price_api_v1_products_path, params: { items: cart_items }
         
-        expect(JSON.parse(response.body)).to eq { "total" => "3.11€" }
+        expect(JSON.parse(response.body)).to eq({ "total" => "3.11€" })
         expect(response.status).to eq(200)
       end
     end
@@ -17,7 +17,7 @@ RSpec.describe "Api::V1::Products", type: :request do
         cart_items = ["SR1", "SR1", "GR1", "SR1"]
         get total_price_api_v1_products_path, params: { items: cart_items }
         
-        expect(JSON.parse(response.body)).to eq { "total" => "16.61€" }
+        expect(JSON.parse(response.body)).to eq({ "total" => "16.61€" })
         expect(response.status).to eq(200)
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe "Api::V1::Products", type: :request do
         cart_items = ["GR1", "CF1", "SR1", "CF1", "CF1"]
         get total_price_api_v1_products_path, params: { items: cart_items }
         
-        expect(JSON.parse(response.body)).to eq { "total" => "30.57€" }
+        expect(JSON.parse(response.body)).to eq({ "total" => "30.57€" })
         expect(response.status).to eq(200)
       end
     end
