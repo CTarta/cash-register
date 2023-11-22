@@ -6,16 +6,8 @@ class PriceCalculator
 
   def total_price
     return "0.00€" if items.empty?
-    if items.size == 1
-      return PRODUCT_LOOKUP[items.first]
-    end
-
-    if items == ["GR1", "GR1"] 
-      "3.11€"
-    elsif items == ["SR1", "SR1", "GR1", "SR1"]
-      "16.61€"
-    elsif items == ["GR1", "CF1", "SR1", "CF1", "CF1"]
-      "30.57€"
+    items.map do |item|
+      PRODUCT_LOOKUP[item]
     end
   end
 
