@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I have chosen to implement this solution under the form of an API in order to maintain a certain flexibilty and changeability for the future. Possible scenarios would be additing and endpoint for expanding the list of registered products or updating the details of existing ones.
 
-Things you may want to cover:
+## Setup instructions
 
-* Ruby version
+After cloning the project locally, you will need to navigate to the project folder and run the following:
 
-* System dependencies
+- `bundle install`
+- `rake db:create`
+- `rake db:migrate`
+- `rake db:seed`
+- `rails s` to get a local server running and listening on http://127.0.0.1:3000
 
-* Configuration
+## Usage instructions using cURL
 
-* Database creation
+`curl -X GET "http://127.0.0.1:3000/api/v1/products/total_price" -d "items[]=GR1&items[]=GR1"`
 
-* Database initialization
+```
+{"total":"3.11€"}
+```
 
-* How to run the test suite
+`curl -X GET "http://127.0.0.1:3000/api/v1/products/total_price" -d "items[]=SR1&items[]=SR1&items[]=GR1&items[]=SR1"`
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+{"total":"16.61€"}
+```
 
-* Deployment instructions
+`curl -X GET "http://127.0.0.1:3000/api/v1/products/total_price" -d "items[]=GR1&items[]=CF1&items[]=SR1&items[]=CF1&items[]=CF1"`
 
-* ...
+```
+{"total":"30.57€"}
+```
