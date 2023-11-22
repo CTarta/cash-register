@@ -28,6 +28,7 @@ class PriceCalculator
   
   def item_price(item, quantity)
     price = PRODUCT_LOOKUP[item]
+    return 0.00 unless price
 
     if item == "GR1"
       price * (quantity/2) + price * (quantity%2)
