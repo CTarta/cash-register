@@ -23,6 +23,20 @@ RSpec.describe PriceCalculator do
         expect(calculator.total_price).to eq "11.23€"
       end 
     end
+    
+    context "When the items in the cart are: GR1, SR1, CF1" do
+      let(:items) { ["GR1", "SR1", "CF1"] }
+      it "returns 19.34€" do
+        expect(calculator.total_price).to eq "19.34€"
+      end 
+    end
+    
+    context "When the items in the cart are: GR1, SR1, SR1, CF1, CF1" do
+      let(:items) { ["GR1", "SR1", "SR1", "CF1", "CF1"] }
+      it "returns 19.34€" do
+        expect(calculator.total_price).to eq "35.57€"
+      end 
+    end
 
     context "When the items in the cart are: GR1, GR1" do
       let(:items) { ["GR1", "GR1"] }
