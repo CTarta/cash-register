@@ -21,15 +21,16 @@ class PriceCalculator
   }
 
   def item_prices 
-    items.tally.map do |item, quantity|
-      item_price(item, quantity)
+    items.tally.map do |code, quantity|
+      item_price(code, quantity)
     end
   end
   
-  def item_price(item, quantity)
-    price = PRODUCT_LOOKUP[item]
-    return 0.00 unless price
-
+  def item_price(code, quantity)
+    item = Product.find_by(code: item)
+    return 0.00 unless item
+    price = item.price
+    
     if item == "GR1"
       price * (quantity/2) + price * (quantity%2)
     elsif item == "SR1"
