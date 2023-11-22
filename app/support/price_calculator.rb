@@ -14,12 +14,6 @@ class PriceCalculator
 
   attr_reader :items
 
-  PRODUCT_LOOKUP = {
-    "GR1" => 3.11,
-    "SR1" => 5.00,
-    "CF1" => 11.23
-  }
-
   def item_prices 
     items.tally.map do |code, quantity|
       item_price(code, quantity)
@@ -27,16 +21,17 @@ class PriceCalculator
   end
   
   def item_price(code, quantity)
-    item = Product.find_by(code: item)
+    item = Product.find_by(code:)
     return 0.00 unless item
-    price = item.price
     
-    if item == "GR1"
+    price = item.price
+
+    if code == "GR1"
       price * (quantity/2) + price * (quantity%2)
-    elsif item == "SR1"
+    elsif code == "SR1"
       price = 4.50 if quantity >= 3
       price * quantity
-    elsif item == "CF1"
+    elsif code == "CF1"
       if quantity >= 3
         (price * quantity) * 2/3
       else
