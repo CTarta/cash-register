@@ -31,5 +31,15 @@ RSpec.describe "Api::V1::Products", type: :request do
         expect(response.status).to eq(200)
       end
     end
+    
+    context "When the cart is empty" do
+      it "the total price is 0" do
+        cart_items = []
+        get total_price_api_v1_products_path, params: { items: cart_items }
+        
+        expect(JSON.parse(response.body)).to eq({ "total" => "0.00€" })
+        expect(response.status).to eq(200)
+      end
+    end
   end
 end
