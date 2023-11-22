@@ -1,7 +1,8 @@
 class PriceCalculator
 
-  def initialize(items: [])
+  def initialize(items: [], item_klass: "Product")
     @items = items.compact_blank
+    @item_klass = item_klass
   end
 
   def total_price
@@ -12,7 +13,7 @@ class PriceCalculator
 
   private
 
-  attr_reader :items
+  attr_reader :items, :item_klass
 
   def item_prices 
     items.tally.map do |code, quantity|
@@ -21,7 +22,7 @@ class PriceCalculator
   end
   
   def item_price(code, quantity)
-    item = Product.find_by(code:)
+    item = item_for(code)
     return 0.00 unless item
     
     price = item.price
@@ -38,6 +39,12 @@ class PriceCalculator
         price * quantity
       end
     end
+  end
+
+  def item_for(code)
+    return unless code
+    constantized_item = item_klass.safe_constantize
+    constantized_item ? constantized_item.find_by(code: code) : nil
   end
 
 end
